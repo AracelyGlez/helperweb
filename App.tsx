@@ -1,6 +1,37 @@
 import 'react-native-gesture-handler';
-import AppNavigator from './src/navigation/AppNavigator';
+import React from 'react';
+import { enableScreens } from 'react-native-screens';
+import { StatusBar, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+// Pantallas
+import LoginScreen from './src/screens/LoginScreen';
+import HomeScreen from './src/screens/HomeScreen';
+
+// Configuración inicial
+enableScreens();
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  return <AppNavigator />;
+  return (
+    <>
+      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen 
+            name="Login" 
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen 
+            name="Home" 
+            component={HomeScreen}
+            options={{ title: 'Inicio' }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
+  );
 }

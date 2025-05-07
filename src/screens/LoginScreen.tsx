@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View, TextInput, Pressable, Alert } from 'react-native';
-import { useEffect, useState } from 'react';
-import { collection, getDocs, query, where } from "firebase/firestore"; 
-import db from '../firebase/firebaseConfig';
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 export default function LoginScreen() {
@@ -9,32 +7,15 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
 
-  const handleLogin = async () => {
-    try {
-      if (!controlNumber || !password) {
-        Alert.alert('Error', 'Por favor ingresa número de control y contraseña');
-        return;
-      }
-
-      // Consulta Firestore para verificar las credenciales
-      const q = query(
-        collection(db, 'Asesorados'),
-        where('numeroControl', '==', controlNumber),
-        where('password', '==', password)
-      );
-
-      const querySnapshot = await getDocs(q);
-      
-      if (querySnapshot.empty) {
-        Alert.alert('Error', 'Credenciales incorrectas');
-      } else {
-        // Usuario autenticado correctamente
-        navigation.navigate('Home');
-      }
-    } catch (error) {
-      console.error("Error al iniciar sesión: ", error);
-      Alert.alert('Error', 'Ocurrió un error al iniciar sesión');
+  const handleLogin = () => {
+    if (!controlNumber || !password) {
+      Alert.alert('Error', 'Por favor ingresa número de control y contraseña');
+      return;
     }
+
+    // Simulación de login exitoso
+    // Aquí podrías agregar tu propia lógica de autenticación
+    navigation.navigate('Home');
   };
 
   return (
