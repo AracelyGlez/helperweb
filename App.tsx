@@ -8,6 +8,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Pantallas
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
+//import CitasPsicologicas from './src/screens/CitasPsicologicasScreen';
+import CitasPsicologicasScreen from './src/screens/CitasPsicologicasScreen';
 
 // Configuración inicial
 enableScreens();
@@ -30,8 +32,22 @@ export default function App() {
             component={HomeScreen}
             options={{ title: 'Inicio' }}
           />
+          <Stack.Screen 
+            name="CitasPsicologicas" 
+            component={CitasPsicologicasScreen}
+            options={{ title: 'Inicio' }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
   );
 }
+
+
+// ///para ver solo la pestaña que estoy probando
+// import React from 'react';
+// import CitasPsicologicasScreen from './src/screens/CitasPsicologicasScreen'; // Ajusta la ruta si está en otro lugar
+
+// export default function App() {
+//   return <CitasPsicologicasScreen />;
+// }

@@ -1,5 +1,11 @@
-import { View, Text, StyleSheet, Button } from 'react-native';
+// HomeScreen.tsx
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../navigation/types'; // Ajusta según la ruta real
+
+import { View, Text, StyleSheet, Button } from 'react-native';
+
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -11,7 +17,12 @@ export default function HomeScreen() {
         title="Cerrar sesión" 
         onPress={() => navigation.navigate('Login')}
       />
+      <Button 
+    title="Agendar Cita Psicológica" 
+    onPress={() => navigation.navigate('CitasPsicologicas')} 
+      />
     </View>
+
   );
 }
 
