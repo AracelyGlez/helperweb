@@ -1,16 +1,16 @@
 //para agregar el calendario es nevcesario instalr npm install react-native-calendars...
 
-// src/screens/CitasPsicologicasScreen.tsx
-import { StyleSheet, Text, View, TextInput, Pressable, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, Image, ScrollView, Platform } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { useState } from 'react';
-//import { DateObject } from 'react-native-calendars';
+import { Picker } from '@react-native-picker/picker'; // Importar el Picker
 
 export default function CitasPsicologicasScreen() {
   const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
   const [motivo, setMotivo] = useState('');
 
-  // Datos simulados del alumno
+  // Datos simulados del alumno se supone que estos datos se modificaran segun cada alumno que beste logeado
   const alumno = {
     nombre: 'Ana López',
     numeroControl: '20251234',
@@ -18,15 +18,15 @@ export default function CitasPsicologicasScreen() {
   };
 
   const handleAgendar = () => {
-    if (!selectedDate || !motivo) {
-      alert('Por favor selecciona una fecha y escribe el motivo.');
+    if (!selectedDate || !selectedTime || !motivo) {
+      alert('Por favor selecciona una fecha, hora y escribe el motivo.');
       return;
     }
-    alert(`Cita agendada para el ${selectedDate}`);
+    alert(`Cita agendada para el ${selectedDate} a las ${selectedTime} con motivo: ${motivo}`);
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.header}>Agenda tu cita psicológica</Text>
       <Text style={styles.subText}>“Tu salud mental importa. ¡Estamos para escucharte!”</Text>
 
@@ -43,27 +43,56 @@ export default function CitasPsicologicasScreen() {
         <Text style={styles.label}>Carrera:</Text>
         <Text>{alumno.carrera}</Text>
       </View>
+    {/* Aqui en el calendario aun no registra las fechas que ay estan ocupadas pero ya esta importando la libreria que puse al principio */}
+      {/* Campos de selección de fecha y motivo */}
+      <View style={styles.dateAndMotivoBox}>
+        <Text style={styles.label}>Fecha de la cita:</Text>
+        <Calendar
+          onDayPress={(day: { dateString: string }) => setSelectedDate(day.dateString)}
+          markedDates={{
+            [selectedDate]: { selected: true, selectedColor: '#f7b2d9' },
+          }}
+          style={styles.calendar}
+        />
+        <Text style={styles.selectedDateText}>
+          {selectedDate ? `Fecha seleccionada: ${selectedDate}` : 'Selecciona una fecha'}
+        </Text>
 
-      <Calendar
-  onDayPress={(day: { dateString: string }) => setSelectedDate(day.dateString)}
-  markedDates={{
-    [selectedDate]: { selected: true, selectedColor: '#f7b2d9' },
-  }}
-  style={styles.calendar}
-/>
+        {/* Selector de hora */}
+        <Text style={styles.label}>Hora de la cita:</Text>
+        <Picker
+          selectedValue={selectedTime}
+          onValueChange={(itemValue) => setSelectedTime(itemValue)}
+          style={styles.picker}
+        >
+          {/* Opciones de hora */}
+          <Picker.Item label="10:00 - 11:00" value="10:00 - 11:00" />
+          <Picker.Item label="11:00 - 12:00" value="11:00 - 12:00" />
+          <Picker.Item label="12:00 - 13:00" value="12:00 - 13:00" />
+          <Picker.Item label="13:00 - 14:00" value="13:00 - 14:00" />
+          <Picker.Item label="14:00 - 15:00" value="14:00 - 15:00" />
+          <Picker.Item label="15:00 - 16:00" value="15:00 - 16:00" />
+          <Picker.Item label="16:00 - 17:00" value="16:00 - 17:00" />
+        </Picker>
+        <Text style={styles.selectedTimeText}>
+          {selectedTime ? `Hora seleccionada: ${selectedTime}` : 'Selecciona una hora'}
+        </Text>
 
-      <TextInput
-        placeholder="Motivo de la cita"
-        value={motivo}
-        onChangeText={setMotivo}
-        style={styles.input}
-        multiline
-      />
+        <Text style={styles.label}>Motivo de la cita:</Text>
+        <TextInput
+          placeholder="Escribe el motivo de la cita"
+          value={motivo}
+          onChangeText={setMotivo}
+          style={styles.input}
+          multiline
+        />
+      </View>
 
+      {/* Botón para guardar la cita */}
       <Pressable style={styles.button} onPress={handleAgendar}>
-        <Text style={styles.buttonText}>Agendar Cita</Text>
+        <Text style={styles.buttonText}>Guardar Cita</Text>
       </Pressable>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -71,10 +100,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffeef4',
-    padding: 20,
+    padding: 10,
   },
   header: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#c2185b',
     textAlign: 'center',
@@ -88,15 +117,15 @@ const styles = StyleSheet.create({
     fontStyle: 'italic'
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 60,  // Reducir el tamaño de la imagen
+    height: 60, // Reducir el tamaño de la imagen
     alignSelf: 'center',
     marginBottom: 15,
   },
   infoBox: {
     backgroundColor: 'white',
     borderRadius: 10,
-    padding: 15,
+    padding: 10,
     marginBottom: 15,
   },
   label: {
@@ -106,13 +135,26 @@ const styles = StyleSheet.create({
   calendar: {
     borderRadius: 10,
     marginBottom: 15,
+    height: 250,  // Reducir el tamaño del calendario
+  },
+  selectedDateText: {
+    fontSize: 14,
+    color: '#c2185b',
+    textAlign: 'center',
+    marginBottom: 15,
+  },
+  selectedTimeText: {
+    fontSize: 14,
+    color: '#c2185b',
+    textAlign: 'center',
+    marginBottom: 15,
   },
   input: {
     borderColor: '#c2185b',
     borderWidth: 1,
     borderRadius: 5,
-    padding: 10,
-    minHeight: 60,
+    padding: 8,
+    minHeight: 50,
     marginBottom: 15,
     backgroundColor: 'white',
   },
@@ -120,10 +162,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#f06292',
     padding: 12,
     borderRadius: 8,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  dateAndMotivoBox: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 15,
+  },
+  picker: {
+    height: 50,
+    width: '100%',
+    marginBottom: 15,
   },
 });
