@@ -182,7 +182,7 @@ type Materia = {
   const [selectedSemestre, setSelectedSemestre] = useState('Todo');
   const [selectedMateria, setSelectedMateria] = useState<Materia | null>(null);
 
-  // Filtrar productos por búsqueda y categoría
+  // Filtrar productos por búsqueda y semestre
   const filteredMaterias = materias.filter((materia) => {
     const searchTerm = normalizeText(searchText);
     return (normalizeText(materia.name).includes(searchTerm) || 
@@ -205,7 +205,7 @@ type Materia = {
 
         <Image
           source={typeof selectedMateria.image === 'string' ? { uri: selectedMateria.image } : selectedMateria.image}
-          style={styles.productDetailImage}
+          style={styles.materiaDetailImage}
         />
         <Text style={styles.materiaNombre}>{selectedMateria.name}</Text>
         <Text style={styles.materiaSemestre}>{selectedMateria.semestre}</Text>
@@ -264,8 +264,8 @@ type Materia = {
             onPress={() => setSelectedMateria(item)}
           >
             <Image source={typeof item.image === 'string' ? { uri: item.image } : item.image} style={styles.productImage} />
-            <Text style={styles.productName}>{item.name}</Text>
-            <Text style={styles.productName}>{item.profesor}</Text>
+            <Text style={styles.datos}>{item.name}</Text>
+            <Text style={styles.datos}>{item.profesor}</Text>
           </TouchableOpacity>
         )}
       />
@@ -279,7 +279,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#c0e6ed', 
-    //#f5f5f5 blanco
   },
   header: {
     fontSize: 24,
@@ -348,7 +347,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: 8,
   },
-  productName: {
+  datos: {
     fontSize: 14,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -362,7 +361,7 @@ const styles = StyleSheet.create({
     color: '#0379a3',
     fontSize: 16,
   },
-  productDetailImage: {
+  materiaDetailImage: {
     width: 200,
     height: 200,
     resizeMode: 'contain',
@@ -389,13 +388,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textTransform: 'capitalize',
   },
-  productDetailDescription: {
-    fontSize: 16,
-    lineHeight: 24,
-    textAlign: 'center',
-    paddingHorizontal: 20,
-  },
-});
+  });
 
 export default Asesoria;
  
