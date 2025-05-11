@@ -21,6 +21,10 @@ export default function HomeScreen() {
     title="Agendar Cita Psicológica" 
     onPress={() => navigation.navigate('CitasPsicologicas')} 
       />
+      <Button 
+    title="Buscar asesorías" 
+    onPress={() => navigation.navigate('Asesorias')} 
+      />
     </View>
 
   );
