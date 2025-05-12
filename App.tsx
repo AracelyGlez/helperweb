@@ -45,7 +45,7 @@ export default function App() {
             options={{ title: 'Inicio' }}
           />
          <Stack.Screen
-         name="Alumno"
+         name="Alumnos"
          component={AlumnoScreen}
          options={{title:'Inicio'}}
          />
