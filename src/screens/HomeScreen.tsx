@@ -25,6 +25,11 @@ export default function HomeScreen() {
     title="Buscar asesorías" 
     onPress={() => navigation.navigate('Asesorias')} 
       />
+      <Button 
+        title='Alumnos'
+        onPress={()=>navigation.navigate('Alumnos')}
+      />
+
     </View>
 
   );

@@ -4,6 +4,7 @@ import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
 import CitasPsicologicasScreen from '../screens/CitasPsicologicasScreen';
 import AsesoriasScreen from '../screens/AsesoriasScreen';
+import AlumnoScreen from '../screens/AlumnoScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ export default function AppNavigator() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="CitasPsicologicas" component={CitasPsicologicasScreen} />
         <Stack.Screen name="Asesorias" component={AsesoriasScreen} />
+        <Stack.Screen name="Alumnos" component={AlumnoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

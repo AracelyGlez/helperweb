@@ -11,6 +11,7 @@ import HomeScreen from './src/screens/HomeScreen';
 //import CitasPsicologicas from './src/screens/CitasPsicologicasScreen';
 import CitasPsicologicasScreen from './src/screens/CitasPsicologicasScreen';
 import AsesoriasScreen from './src/screens/AsesoriasScreen';
+import AlumnoScreen from './src/screens/AlumnoScreen';
 
 // Configuración inicial
 enableScreens();
@@ -43,6 +44,11 @@ export default function App() {
             component={AsesoriasScreen}
             options={{ title: 'Inicio' }}
           />
+         <Stack.Screen
+         name="Alumno"
+         component={AlumnoScreen}
+         options={{title:'Inicio'}}
+         />
         </Stack.Navigator>
       </NavigationContainer>
     </>

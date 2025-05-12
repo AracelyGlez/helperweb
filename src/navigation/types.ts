@@ -3,7 +3,8 @@ export type RootStackParamList = {
     Login: undefined;
     Home: undefined;
     CitasPsicologicas: undefined;
-    Asesorias: undefined; //rura para la pagina de agregar citas
+    Asesorias: undefined;
+    Alumnos: undefined; //rura para la pagina de agregar citas
     // Puedes agregar más rutas aquí según necesites
   };
   
