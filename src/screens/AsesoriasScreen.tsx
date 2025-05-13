@@ -10,30 +10,12 @@ import {
   Pressable,
 } from 'react-native';
 
-import pooImage from '../../assets/poo.jpg';
-import caldif from '../../assets/diferencial.png';
-import admin from '../../assets/administracion.jpg';
-import algebra from '../../assets/álgebra.jpg';
-import conta from '../../assets/contabilidad.jpg';
-import cultura from '../../assets/cultura empresarial.jpg';
-import desarrollo from '../../assets/desarrollo sustentable.jpg';
-import estructura from '../../assets/estructura de datos.jpg';
-import etica from '../../assets/etica.jpg';
-import fisica from '../../assets/física.jpg';
-import fundprogra from '../../assets/fundamentos progra.png';
-import calint from '../../assets/integral.png';
-import invest from '../../assets/investigacion.jpg';
-import discretas from '../../assets/mates discretas.png';
-import probabilidad from '../../assets/probabilidad.jpeg';
-import quimica from '../../assets/quimica.jpg';
-import so from '../../assets/Sistemas Operativos.jpg';
-import calvect from '../../assets/vectorial.jpg';
-
+import * as assets from '../../assets';
 
 type Materia = {
     id: string;
     name: string;
-    image: any;
+    image: number | { uri: string };
     semestre: string;
     profesor: string;
   };
@@ -44,126 +26,126 @@ type Materia = {
       {
         id: '1',
         name: 'Cálculo Diferencial',
-        image: caldif,
+        image: assets.caldif,
         semestre: '1° semestre',
         profesor: 'Juan Solano',
       },
       {
         id: '2',
         name: 'Fundamentos de programación',
-        image: fundprogra,
+        image: assets.fundprogra,
         semestre: '1° semestre',
         profesor: 'Rocío Névarez',
       },
       {
         id: '3',
         name: 'Taller de Ética',
-        image: etica,
+        image: assets.etica,
         semestre: '1° semestre',
         profesor: 'Erika Martínez',
       },
       {
         id: '4',
         name: 'Matemáticas discretas',
-        image: discretas,
+        image: assets.discretas,
         semestre: '1° semestre',
         profesor: 'Alicia Robles',
       },
       {
         id: '5',
         name: 'Fundamentos de investigación',
-        image: invest,
+        image: assets.invest,
         semestre: '1° semestre',
         profesor: 'Víctor López',
       },
       {
         id: '6',
         name: 'Taller de administración',
-        image: admin,
+        image: assets.admin,
         semestre: '1° semestre',
         profesor: 'Cynthia Araiza',
       },
       {
         id: '7',
         name: 'Cálculo Integral',
-        image: calint,
+        image: assets.calint,
         semestre: '2° semestre',
         profesor: 'Elia Mata Sáenz',
       },
       {
         id: '8',
         name: 'POO',
-        image: pooImage,
+        image: assets.pooImage,
         semestre: '2° semestre',
         profesor: 'David Valtierrez',
       },
       {
         id: '9',
         name: 'Contabilidad Financiera',
-        image: conta,
+        image: assets.conta,
         semestre: '2° semestre',
-        profesor: 'Laura Ramírez',
+        profesor: 'Laura Franco',
       },
       {
         id: '10',
         name: 'Química',
-        image: quimica,
+        image: assets.quimica,
         semestre: '2° semestre',
         profesor: 'Rosario Baray',
       },
       {
         id: '11',
         name: 'Desarrollo sustentable',
-        image: desarrollo,
+        image: assets.desarrollo,
         semestre: '2° semestre',
         profesor: 'Alicia Robles',
       },
       {
         id: '12',
         name: 'Probabilidad y estadística',
-        image: probabilidad,
+        image: assets.probabilidad,
         semestre: '2° semestre',
         profesor: 'Elia Mata Sáenz',
       },
       {
         id: '13',
         name: 'Cálculo Vectorial',
-        image: calvect,
+        image: assets.calvect,
         semestre: '3° semestre',
         profesor: 'Martín Salinas',
       },
       {
         id: '14',
         name: 'Estructura de datos',
-        image: estructura,
+        image: assets.estructura,
         semestre: '3° semestre',
         profesor: 'Gerardo García',
       },
       {
         id: '15',
         name: 'Cultura Empresarial',
-        image: cultura,
+        image: assets.cultura,
         semestre: '3° semestre',
         profesor: 'Osvaldo Reyes',
       },
       {
         id: '16',
         name: 'Álgebra Lineal',
-        image: algebra,
+        image: assets.algebra,
         semestre: '3° semestre',
         profesor: 'Horacio Corral',
       },
       {
         id: '17',
         name: 'Sistemas Operativos',
-        image: so,
+        image: assets.so,
         semestre: '3° semestre',
         profesor: 'Gerardo García',
       },
       {
         id: '18',
         name: 'Física General',
-        image: fisica,
+        image: assets.fisica,
         semestre: '3° semestre',
         profesor: 'Elia Mata Sáenz',
       },
@@ -263,7 +245,7 @@ type Materia = {
             style={styles.recuadroMateria}
             onPress={() => setSelectedMateria(item)}
           >
-            <Image source={typeof item.image === 'string' ? { uri: item.image } : item.image} style={styles.productImage} />
+             <Image source={item.image} style={styles.productImage} />
             <Text style={styles.datos}>{item.name}</Text>
             <Text style={styles.datos}>{item.profesor}</Text>
           </TouchableOpacity>

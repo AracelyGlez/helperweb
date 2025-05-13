@@ -1,0 +1,18 @@
+export { default as caldif } from './diferencial.png';
+export { default as admin } from './administracion.jpg';
+export { default as pooImage } from './poo.jpg';
+export { default as algebra } from './álgebra.jpg';
+export { default as conta } from './contabilidad.jpg';
+export { default as cultura } from './cultura empresarial.jpg';
+export { default as estructura } from './estructura de datos.jpg';
+export { default as etica } from './etica.jpg';
+export { default as fisica } from './física.jpg';
+export { default as fundprogra } from './fundamentos progra.png';
+export { default as calint } from './integral.png';
+export { default as invest } from './investigacion.jpg';
+export { default as discretas } from './mates discretas.png';
+export { default as desarrollo } from './desarrollo sustentable.jpg';
+export { default as probabilidad } from './probabilidad.jpeg';
+export { default as quimica } from './quimica.jpg';
+export { default as so } from './Sistemas Operativos.jpg';
+export { default as calvect } from './vectorial.jpg';
