@@ -38,17 +38,17 @@ export default function App() {
           <Stack.Screen 
             name="CitasPsicologicas" 
             component={CitasPsicologicasScreen}
-            options={{ title: 'Inicio' }}
+            options={{ title: 'CitasPsicologicas' }}
           />
           <Stack.Screen 
             name="Asesorias" 
             component={AsesoriasScreen}
-            options={{ title: 'Inicio' }}
+            options={{ title: 'Asesorias' }}
           />
          <Stack.Screen
          name="Alumnos"
          component={AlumnoScreen}
-         options={{title:'Inicio'}}
+         options={{title:'Alumno'}}
          />
     <Stack.Screen name="Redireccion" component={RedirectionScreen}/>
         </Stack.Navigator>
