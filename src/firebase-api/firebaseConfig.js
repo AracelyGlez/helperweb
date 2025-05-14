@@ -1,65 +1,29 @@
-const admin = require('firebase-admin');
-const dotenv = require('dotenv');
-const { v4: uuidv4 } = require('uuid');
+// Importa las funciones necesarias del SDK
+import { initializeApp } from "firebase/app";
+// Importa el servicio de Autenticación
+import { getAuth } from "firebase/auth";
+// Importa el servicio de Analytics (aunque no lo usaremos directamente en el login)
+import { getAnalytics } from "firebase/analytics";
 
-dotenv.config();
-
-// Configuración completa de Firebase
+// Tu configuración web de Firebase
+// La copio directamente de lo que me proporcionaste
 const firebaseConfig = {
-  credential: admin.credential.cert({
-    type: "service_account",
-    project_id: process.env.FIREBASE_PROJECT_ID,
-    private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
-    private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-    client_email: process.env.FIREBASE_CLIENT_EMAIL,
-    client_id: process.env.FIREBASE_CLIENT_ID,
-    auth_uri: "https://accounts.google.com/o/oauth2/auth",
-    token_uri: "https://oauth2.googleapis.com/token",
-    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-    client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${encodeURIComponent(process.env.FIREBASE_CLIENT_EMAIL)}`,
-    universe_domain: "googleapis.com"
-  }),
-  databaseURL: `https://${process.env.FIREBASE_PROJECT_ID}.firebaseio.com`,
-  storageBucket: `${process.env.FIREBASE_PROJECT_ID}.appspot.com`
+  apiKey: "AIzaSyBAfq6ajjb_0muRTvnFY40zBepqsBC8o3A",
+  authDomain: "helperweb-52035.firebaseapp.com",
+  projectId: "helperweb-52035",
+  storageBucket: "helperweb-52035.firebasestorage.app",
+  messagingSenderId: "859321890183",
+  appId: "1:859321890183:web:866d8221d88cfbc1dfcf22",
+  measurementId: "G-ZXRV9ZRLS1"
 };
 
-// Inicialización con manejo de errores
-try {
-  admin.initializeApp(firebaseConfig);
-  console.log('Firebase Admin SDK initialized successfully');
-} catch (error) {
-  console.error('Firebase initialization error:', error);
-  process.exit(1);
-}
+// Inicializa Firebase
+const app = initializeApp(firebaseConfig);
+// Inicializa Analytics (si lo necesitas en tu app, aunque no para el login en sí)
+const analytics = getAnalytics(app); // Lo incluimos ya que estaba en tu config original
 
-// Servicios de Firebase
-const auth = admin.auth();
-const db = admin.firestore();
-const storage = admin.storage();
-const bucket = storage.bucket();
-const fieldValue = admin.firestore.FieldValue;
+// Obtiene la instancia de autenticación y la exporta
+export const auth = getAuth(app);
 
-// Configuración especial para entornos de desarrollo
-if (process.env.NODE_ENV === 'development') {
-  db.settings({ ignoreUndefinedProperties: true });
-  console.log('Firestore configured for development environment');
-}
-
-// Función para generar IDs seguros
-const generateId = () => uuidv4();
-
-module.exports = {
-  admin,
-  auth,
-  db,
-  bucket,
-  storage,
-  fieldValue,
-  generateId,
-  // Exportamos tipos útiles
-  firestoreTypes: {
-    Timestamp: admin.firestore.Timestamp,
-    FieldValue: admin.firestore.FieldValue,
-    FieldPath: admin.firestore.FieldPath
-  }
-};
+// Puedes exportar la app también si la necesitas en otro lugar
+// export default app;
