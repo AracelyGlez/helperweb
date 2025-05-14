@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Pressable, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, Alert, ImageBackground } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword} from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 // Importa la instancia de auth que creaste en tu archivo de inicialización
 import { auth } from '../firebase-api/firebaseConfig';
+
 
 export default function LoginScreen() {
   const [controlNumber, setControlNumber] = useState('');
@@ -62,7 +63,11 @@ export default function LoginScreen() {
 
   // ... (el resto de tu componente y estilos permanecen igual) ...
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require('../../assets/photobackground.jpg')} 
+    style={styles.backgroundImage}
+      resizeMode="cover" // Esto hace que la imagen cubra toda la pantalla
+      >
+      <View style={styles.container}>
       <View style={styles.loginBox}>
         <Text style={styles.title}>Iniciar Sesión</Text>
 
@@ -88,10 +93,16 @@ export default function LoginScreen() {
         </Pressable>
       </View>
     </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage:{
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
