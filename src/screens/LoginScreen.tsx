@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   loginBox: {
     width: '80%',
     maxWidth: 400,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255, 255, 255, 0)', // Blanco con 70% de opacidad
     borderRadius: 10,
     padding: 20,
     shadowColor: '#000',
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     alignItems: 'center',
-  },
+},
   title: {
     fontSize: 24,
     fontWeight: 'bold',
