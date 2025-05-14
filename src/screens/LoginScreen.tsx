@@ -25,8 +25,8 @@ export default function LoginScreen() {
       const user = userCredential.user;
       console.log('Usuario inició sesión exitosamente:', user.email);
       Alert.alert('Éxito', '¡Inicio de sesión exitoso!');
-      navigation.navigate('Home');
-
+      navigation.navigate('Redireccion')
+      
     } catch (error) {
       // **VERIFICACIÓN DEL TIPO DE ERROR PARA TYPESCRIPT**
       let userErrorMessage = 'Ocurrió un error desconocido al intentar iniciar sesión.'; // Mensaje por defecto

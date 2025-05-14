@@ -12,6 +12,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import CitasPsicologicasScreen from './src/screens/CitasPsicologicasScreen';
 import AsesoriasScreen from './src/screens/AsesoriasScreen';
 import AlumnoScreen from './src/screens/AlumnoScreen';
+import RedirectionScreen from './src/screens/RedireccionScreen';
 
 // Configuración inicial
 enableScreens();
@@ -49,6 +50,7 @@ export default function App() {
          component={AlumnoScreen}
          options={{title:'Inicio'}}
          />
+    <Stack.Screen name="Redireccion" component={RedirectionScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </>
