@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View, TextInput, Pressable, Alert, ImageBackground } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { Image } from 'react-native';
+
+
 
 // Importa la función de inicio de sesión y la clase FirebaseError
 import { signInWithEmailAndPassword} from 'firebase/auth';
@@ -69,6 +72,12 @@ export default function LoginScreen() {
       >
       <View style={styles.container}>
       <View style={styles.loginBox}>
+
+  <Image
+    source={require('../../assets/usuario.png')}
+    style={styles.icon}
+  />
+
         <Text style={styles.title}>Iniciar Sesión</Text>
 
         <TextInput
@@ -112,7 +121,7 @@ const styles = StyleSheet.create({
   loginBox: {
     width: '80%',
     maxWidth: 400,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
     borderRadius: 10,
     padding: 20,
     shadowColor: '#000',
@@ -126,19 +135,20 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#FFFF'
   },
   input: {
     width: '100%',
     height: 45,
     borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
+    borderWidth: 2,
+    borderRadius: 7,
     paddingHorizontal: 10,
     marginBottom: 15,
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#1A1C40',
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -151,4 +161,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   },
+  icon: {
+  width: 60,
+  height: 60,
+  marginBottom: 10,
+},
+
 });

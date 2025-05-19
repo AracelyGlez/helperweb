@@ -57,7 +57,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       {/* El título de bienvenida siempre se muestra si el usuario está logueado */}
-      <Text style={styles.title}>Bienvenido a la aplicación</Text>
+    <Text style={styles.title}>Bienvenido a la aplicación</Text>
 
       {/* 1. Botón Cerrar Sesión: Visible para CUALQUIER usuario logueado */}
       {/* Ya verificamos que hay un currentUser arriba, así que este se mostrará si isLoading es false */}
