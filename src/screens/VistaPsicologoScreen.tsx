@@ -169,7 +169,7 @@ const VistaPsicologoScreen = () => {
     Alert.alert('Éxito', 'Nueva cita agregada correctamente');
   };
 
-  // Componente de tarjeta de cita
+  // Componente de tarjeta de cita normall
   const CitaCard = ({ cita }: { cita: Cita }) => (
     <View style={[
       styles.card,
@@ -372,7 +372,7 @@ const VistaPsicologoScreen = () => {
         </View>
       </Modal>
 
-      {/* Modal para reagendar cita */}
+      {/* Modal para reagendaaaar cita */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -428,7 +428,7 @@ const VistaPsicologoScreen = () => {
   );
 };
 
-// Estilos con colores pastel más suaves
+// Estilos con colores por si quiern cambiarlos
 const styles = StyleSheet.create({
   container: {
     flex: 1,
