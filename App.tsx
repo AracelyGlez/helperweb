@@ -13,6 +13,8 @@ import CitasPsicologicasScreen from './src/screens/CitasPsicologicasScreen';
 import AsesoriasScreen from './src/screens/AsesoriasScreen';
 import AlumnoScreen from './src/screens/AlumnoScreen';
 import RedirectionScreen from './src/screens/RedireccionScreen';
+import VistaPsicologoScreen from './src/screens/VistaPsicologoScreen';
+
 
 // Configuración inicial
 enableScreens();
@@ -49,6 +51,11 @@ export default function App() {
          name="Alumnos"
          component={AlumnoScreen}
          options={{title:'Alumno'}}
+         />
+          <Stack.Screen
+         name="VistaPsicologo"
+         component={VistaPsicologoScreen}
+         options={{title:'VistaPsicologo'}}
          />
     <Stack.Screen name="Redireccion" component={RedirectionScreen}/>
         </Stack.Navigator>

@@ -7,6 +7,7 @@ export type RootStackParamList = {
     Alumnos: undefined; //rura para la pagina de agregar citas
     // Puedes agregar más rutas aquí según necesites
     Redireccion:undefined;
+    VistaPsicologo:undefined;
   };
   
   // Esto es para tener acceso al tipado en cualquier parte de la app

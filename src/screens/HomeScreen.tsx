@@ -87,6 +87,12 @@ export default function HomeScreen() {
           onPress={() => navigation.navigate('CitasPsicologicas')}
         />
       )}
+       {(userRole === 'psicologa' || userRole === 'admin') && (
+        <Button
+          title="VistaPsicologo"
+          onPress={() => navigation.navigate('VistaPsicologo')}
+        />
+      )}
 
       {/* 3. Botón Buscar asesorías: Visible solo para ALUMNOS */}
       {/* Usamos el operador && para mostrar el botón solo si el rol es 'alumno' */}
