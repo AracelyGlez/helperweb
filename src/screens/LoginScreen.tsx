@@ -117,14 +117,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   loginBox: {
-<<<<<<< HEAD
     width: '80%',
     maxWidth: 400,
-    backgroundColor: 'rgba(255, 255, 255, 0)', // Blanco con 70% de opacidad
-=======
-    width:'30%',
-    backgroundColor: 'rgba(26, 43, 96, 0.14)'  ,
->>>>>>> affeead40b24c58629bedd8a987d29665de96be7
+    backgroundColor: 'rgba(26, 43, 96, 0.14)' ,
     borderRadius: 10,
     padding: 20,
     shadowColor: '#000',
