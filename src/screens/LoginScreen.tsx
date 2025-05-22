@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Pressable, Alert, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, Alert, ImageBackground,Image } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
@@ -69,10 +69,11 @@ export default function LoginScreen() {
       >
       <View style={styles.container}>
       <View style={styles.loginBox}>
+        <Image source={require('../../assets/profile.gif')} style={styles.imagenperfil} />
         <Text style={styles.title}>Iniciar Sesión</Text>
 
         <TextInput
-          placeholder="Numero de control (usar formato email si es necesario)"
+          placeholder="Correo electronico"
           style={styles.input}
           value={controlNumber}
           onChangeText={setControlNumber}
@@ -98,6 +99,12 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
+  imagenperfil: {
+  width: 100,
+  height: 100,
+  borderRadius: 200,
+
+},
   backgroundImage:{
     flex: 1,
     width: '100%',
@@ -110,15 +117,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   loginBox: {
+<<<<<<< HEAD
     width: '80%',
     maxWidth: 400,
     backgroundColor: 'rgba(255, 255, 255, 0)', // Blanco con 70% de opacidad
+=======
+    width:'30%',
+    backgroundColor: 'rgba(26, 43, 96, 0.14)'  ,
+>>>>>>> affeead40b24c58629bedd8a987d29665de96be7
     borderRadius: 10,
     padding: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
     elevation: 5,
     alignItems: 'center',
 },
@@ -126,6 +138,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#fff'
   },
   input: {
     width: '100%',
@@ -136,6 +149,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 15,
     fontSize: 16,
+    color:'#fff'
   },
   button: {
     backgroundColor: '#007bff',

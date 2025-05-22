@@ -28,126 +28,126 @@ type Materia = {
         name: 'Cálculo Diferencial',
         image: assets.caldif,
         semestre: '1° semestre',
-        profesor: 'Juan Solano',
+        profesor: 'Juan Solano \n Elia Mata Sáenz',
       },
       {
         id: '2',
         name: 'Fundamentos de programación',
         image: assets.fundprogra,
         semestre: '1° semestre',
-        profesor: 'Rocío Névarez',
+        profesor: 'Rocío Névarez \n David Valtierrez',
       },
       {
         id: '3',
         name: 'Taller de Ética',
         image: assets.etica,
         semestre: '1° semestre',
-        profesor: 'Erika Martínez',
+        profesor: 'Erika Martínez \n Julio Chavarría',
       },
       {
         id: '4',
         name: 'Matemáticas discretas',
         image: assets.discretas,
         semestre: '1° semestre',
-        profesor: 'Alicia Robles',
+        profesor: 'Alicia Robles \n Gerardo García',
       },
       {
         id: '5',
         name: 'Fundamentos de investigación',
         image: assets.invest,
         semestre: '1° semestre',
-        profesor: 'Víctor López',
+        profesor: 'Víctor López \n Rosalinda García',
       },
       {
         id: '6',
         name: 'Taller de administración',
         image: assets.admin,
         semestre: '1° semestre',
-        profesor: 'Cynthia Araiza',
+        profesor: 'Cynthia Araiza \n Julio Chavarría',
       },
       {
         id: '7',
         name: 'Cálculo Integral',
         image: assets.calint,
         semestre: '2° semestre',
-        profesor: 'Elia Mata Sáenz',
+        profesor: 'Elia Mata Sáenz \n Martín Salinas',
       },
       {
         id: '8',
         name: 'POO',
         image: assets.pooImage,
         semestre: '2° semestre',
-        profesor: 'David Valtierrez',
+        profesor: 'David Valtierrez \n Gustavo Núñez',
       },
       {
         id: '9',
         name: 'Contabilidad Financiera',
         image: assets.conta,
         semestre: '2° semestre',
-        profesor: 'Laura Franco',
+        profesor: 'Laura Franco \n Julieta Vázquez',
       },
       {
         id: '10',
         name: 'Química',
         image: assets.quimica,
         semestre: '2° semestre',
-        profesor: 'Rosario Baray',
+        profesor: 'Rosario Baray \n Vladimir Estupiñón',
       },
       {
         id: '11',
         name: 'Desarrollo sustentable',
         image: assets.desarrollo,
         semestre: '2° semestre',
-        profesor: 'Alicia Robles',
+        profesor: 'Alicia Robles \n José Hernández',
       },
       {
         id: '12',
         name: 'Probabilidad y estadística',
         image: assets.probabilidad,
         semestre: '2° semestre',
-        profesor: 'Elia Mata Sáenz',
+        profesor: 'Elia Mata Sáenz \n Martín Salinas',
       },
       {
         id: '13',
         name: 'Cálculo Vectorial',
         image: assets.calvect,
         semestre: '3° semestre',
-        profesor: 'Martín Salinas',
+        profesor: 'Martín Salinas \n Juan Solano',
       },
       {
         id: '14',
         name: 'Estructura de datos',
         image: assets.estructura,
         semestre: '3° semestre',
-        profesor: 'Gerardo García',
+        profesor: 'Gerardo García \n Gustavo Núñez',
       },
       {
         id: '15',
         name: 'Cultura Empresarial',
         image: assets.cultura,
         semestre: '3° semestre',
-        profesor: 'Osvaldo Reyes',
+        profesor: 'Osvaldo Reyes \n Laura Franco',
       },
       {
         id: '16',
         name: 'Álgebra Lineal',
         image: assets.algebra,
         semestre: '3° semestre',
-        profesor: 'Horacio Corral',
+        profesor: 'Horacio Corral \n Juan Solano',
       },
       {
         id: '17',
         name: 'Sistemas Operativos',
         image: assets.so,
         semestre: '3° semestre',
-        profesor: 'Gerardo García',
+        profesor: 'Gerardo García \n Víctor González',
       },
       {
         id: '18',
         name: 'Física General',
         image: assets.fisica,
         semestre: '3° semestre',
-        profesor: 'Elia Mata Sáenz',
+        profesor: 'Elia Mata Sáenz \n David Urita',
       },
     ]);
 
@@ -192,9 +192,14 @@ type Materia = {
         <Text style={styles.materiaNombre}>{selectedMateria.name}</Text>
         <Text style={styles.materiaSemestre}>{selectedMateria.semestre}</Text>
         <Text style={styles.materiaProfesor}>{selectedMateria.profesor}</Text>
-        <Pressable style={styles.button}>
-        <Text style={styles.buttonText}>Registrarse</Text>
+        <View style={styles.buttonsContainer}>
+        <Pressable style={styles.button1}>
+        <Text style={styles.buttonText}>Documentación</Text>
         </Pressable>
+        <Pressable style={styles.button2}>
+        <Text style={styles.buttonText}>Asesorías</Text>
+        </Pressable>
+        </View>
       </View>
     );
   }
@@ -270,20 +275,38 @@ const styles = StyleSheet.create({
     backgroundColor: '#2db5cf',
     color: '#FFFFFF',
   },
-  button: {
+  button1: {
     backgroundColor: '#2db5cf',
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 8,
     alignItems: 'center',
-    alignSelf: 'center',
+    flexDirection: 'row',
     width: 150,
     maxWidth: '50%',
-    marginHorizontal: 20,
+    marginRight: 20,
+    justifyContent: 'center',
+  },
+  buttonsContainer: {
+  flexDirection: 'row', 
+  justifyContent: 'center', 
+  marginTop: 10, 
+},
+  button2: {
+    backgroundColor: '#2db5cf',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: 150,
+    maxWidth: '50%',
+    justifyContent: 'center',
   },
    buttonText: {
     color: 'white',
     fontWeight: 'bold',
+    textAlign: 'center', 
   },
   searchInput: {
     height: 40,
@@ -291,6 +314,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 10,
+    padding: 15,
     marginBottom: 16,
     backgroundColor: '#fff',
   },
