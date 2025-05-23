@@ -1,5 +1,5 @@
 import { Calendar } from 'react-native-calendars';
-import { StyleSheet, Text, View, TextInput, Pressable, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, Alert, ImageBackground } from 'react-native';
 import { SetStateAction, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -20,15 +20,16 @@ export default function AlumnoScreen() {
 
   return (
     <View style={styles.container}>
+      
       <View style={styles.calendarWrapper}>
-        <View style={{  alignItems: 'center' }}>
+        <View style={{  alignItems: 'center'}}>
           <Calendar
-            style={{ width: '200%', borderRadius: 10 }}
+            style={styles.calendario}
             onDayPress={(day: { dateString: SetStateAction<string>; }) => setSelectedDate(day.dateString)}
             markedDates={{
               [selectedDate]: {
                 selected: true,
-                selectedColor: '#00adf5',
+                selectedColor: '#003845',
               },
             }}
           />
@@ -51,13 +52,14 @@ export default function AlumnoScreen() {
       </View>
 
       <View style={styles.buttonsWrapper}>
-        <Pressable style={styles.button} onPress={() => navigation.navigate('Asesorias')}>
-          <Text style={styles.buttonText}>Asesorías</Text>
-        </Pressable>
-        <Pressable style={styles.button} onPress={() => navigation.navigate('CitasPsicologicas')}>
-          <Text style={styles.buttonText}>Cita Psicológica</Text>
-        </Pressable>
-      </View>
+  <Pressable style={styles.button} onPress={() => navigation.navigate('Asesorias')}>
+    <Text style={styles.buttonText}>Asesorías</Text>
+  </Pressable>
+  <Pressable style={styles.button} onPress={() => navigation.navigate('CitasPsicologicas')}>
+    <Text style={styles.buttonText}>Cita Psicológica</Text>
+  </Pressable>
+</View>
+
     </View>
   );
 }
@@ -66,15 +68,23 @@ export default function AlumnoScreen() {
 
 
 const styles = StyleSheet.create({
+  calendario:{
+     width: '200%',
+       borderRadius: 10,  
+       shadowColor: '#003845',
+       shadowRadius: 20
+  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#8FB4D5',
     justifyContent: 'space-between',
     paddingVertical: 20,
+    
   },
   calendarWrapper: {
     alignItems: 'center',
-     width: '85%'
+     width: '85%',
+  
 
   },
   activitiesWrapper: {
@@ -85,18 +95,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 6,
+   
   },
   activityItem: {
     fontSize: 15,
     marginBottom: 4,
+   
   },
   buttonsWrapper: {
     padding: 20,
     gap: 15,
     alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center', // Espacio entre los botones
+     
   },
   button: {
-    backgroundColor: '#00adf5',
+    backgroundColor: '#00A4BF',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
