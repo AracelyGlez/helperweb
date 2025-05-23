@@ -428,7 +428,7 @@ const VistaPsicologoScreen = () => {
   );
 };
 
-// Estilos con colores por si quieren cambiarlos
+// Estilos con colores por si quiern cambiarlos
 const styles = StyleSheet.create({
   container: {
     flex: 1,

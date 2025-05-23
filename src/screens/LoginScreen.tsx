@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword} from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 // Importa la instancia de auth que creaste en tu archivo de inicialización
 import { auth } from '../firebase-api/firebaseConfig';
+import React from 'react';
 
 
 export default function LoginScreen() {

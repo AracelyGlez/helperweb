@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Pressable, Alert } from 'react-nativ
 import { SetStateAction, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
 
 
 export default function AlumnoScreen() {
