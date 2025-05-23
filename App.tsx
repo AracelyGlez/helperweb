@@ -15,6 +15,15 @@ import AlumnoScreen from './src/screens/AlumnoScreen';
 import RedirectionScreen from './src/screens/RedireccionScreen';
 import VistaPsicologoScreen from './src/screens/VistaPsicologoScreen';
 import ProfesoresScreen from './src/screens/ProfesoresScreen'; 
+import CalculoDiferenciasScreen from './src/screens/Documentacion/CalculoDiferencalScreen';
+import FundamentosDeInvestigacionScreen from './src/screens/Documentacion/FundamentosDeInvestigacionScreen';
+import FundamentosDeProgramacionScreen from './src/screens/Documentacion/FundamentosDeProgramacionScreen';
+import MatematicasDiscretasScreen from './src/screens/Documentacion/MatematicasDiscretasScreen';
+import TallerDeAdministracionScreen from './src/screens/Documentacion/TallerDeAdministracionScreen';
+import TallerDeEticaScreen from './src/screens/Documentacion/TallerDeEticaScreen';
+
+
+
 
 
 // Configuración inicial
@@ -71,9 +80,9 @@ export default function App() {
 }
 
 
-// // ///para ver solo la pestaña que estoy probando
+// // // ///para ver solo la pestaña que estoy probando
 // import React from 'react';
-// import CalculoDiferencialScreen from './src/screens/Documentacion/FundamentosDeProgramacionScreen'; // Ajusta la ruta si está en otro lugar
+// import CalculoDiferencialScreen from './src/screens/Documentacion/TallerDeAdministracionScreen'; // Ajusta la ruta si está en otro lugar
 
 // export default function App() {
 //   return <CalculoDiferencialScreen />;
