@@ -1,3 +1,4 @@
+//appNavegator
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from '../screens/LoginScreen';
@@ -8,6 +9,8 @@ import AlumnoScreen from '../screens/AlumnoScreen';
 import RedirectScreen from '../screens/RedireccionScreen';
 import VistaPsicologoScreen from '../screens/VistaPsicologoScreen';
 import ProfesoresScreen from '../screens/ProfesoresScreen'; 
+import React from 'react';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +29,10 @@ export default function AppNavigator() {
         <Stack.Screen name="Alumnos" component={AlumnoScreen} />
         <Stack.Screen name="VistaPsicologo" component={VistaPsicologoScreen} />
         <Stack.Screen name="Profesores" component={ProfesoresScreen} />
+                {/* <Stack.Screen name="VistaP" component={VistaPsicolgoScreen} /> */}
+         <Stack.Screen name="VistaPsicologo" component={VistaPsicologoScreen} />
+               {/* <Stack.Screen name="VistaPsicologoScreen" component={VistaPsicolgoScreen} /> */}
+
         <Stack.Screen name="Redireccion" component={RedirectScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>

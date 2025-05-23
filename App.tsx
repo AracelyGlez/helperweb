@@ -5,10 +5,10 @@ import { StatusBar, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// Pantallas
+//Pantallas
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
-//import CitasPsicologicas from './src/screens/CitasPsicologicasScreen';
+import CitasPsicologicas from './src/screens/CitasPsicologicasScreen';
 import CitasPsicologicasScreen from './src/screens/CitasPsicologicasScreen';
 import AsesoriasScreen from './src/screens/AsesoriasScreen';
 import AlumnoScreen from './src/screens/AlumnoScreen';
@@ -71,10 +71,10 @@ export default function App() {
 }
 
 
-// ///para ver solo la pestaña que estoy probando
+// // ///para ver solo la pestaña que estoy probando
 // import React from 'react';
-// import CitasPsicologicasScreen from './src/screens/CitasPsicologicasScreen'; // Ajusta la ruta si está en otro lugar
+// import CalculoDiferencialScreen from './src/screens/Documentacion/FundamentosDeProgramacionScreen'; // Ajusta la ruta si está en otro lugar
 
 // export default function App() {
-//   return <CitasPsicologicasScreen />;
+//   return <CalculoDiferencialScreen />;
 // }
