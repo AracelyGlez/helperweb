@@ -195,7 +195,30 @@ type Materia = {
         <Text style={styles.materiaSemestre}>{selectedMateria.semestre}</Text>
         <Text style={styles.materiaProfesor}>{selectedMateria.profesores}</Text>
         <View style={styles.buttonsContainer}>
-        <Pressable style={styles.button1}>
+        <Pressable style={styles.button1}
+        onPress={() => {
+      // Redirige a la pantalla correspondiente según la materia
+     switch(selectedMateria.name) {
+      case 'Cálculo Diferencial':
+        navigation.navigate('CalculoDiferencial');
+        break;
+      case 'Fundamentos de programación':
+        navigation.navigate('FundamentosDeProgramacion');
+        break;
+      case 'Taller de Ética':
+        navigation.navigate('TallerDeEtica');
+        break;
+      case 'Matemáticas discretas':
+        navigation.navigate('MatesDiscretas');
+        break;
+      case 'Fundamentos de investigación':
+        navigation.navigate('FundamentosDeInvestigacion');
+        break;    
+      case 'Taller de administración':
+        navigation.navigate('TallerDeAdmin');
+        break;    
+    }
+  }}>
         <Text style={styles.buttonText}>Documentación</Text>
         </Pressable>
         <Pressable style={styles.button2} onPress={() => navigation.navigate('Profesores', { materia: selectedMateria })}>

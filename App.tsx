@@ -15,7 +15,7 @@ import AlumnoScreen from './src/screens/AlumnoScreen';
 import RedirectionScreen from './src/screens/RedireccionScreen';
 import VistaPsicologoScreen from './src/screens/VistaPsicologoScreen';
 import ProfesoresScreen from './src/screens/ProfesoresScreen'; 
-import CalculoDiferenciasScreen from './src/screens/Documentacion/CalculoDiferencalScreen';
+import CalculoDiferencialScreen from './src/screens/Documentacion/CalculoDiferencalScreen';
 import FundamentosDeInvestigacionScreen from './src/screens/Documentacion/FundamentosDeInvestigacionScreen';
 import FundamentosDeProgramacionScreen from './src/screens/Documentacion/FundamentosDeProgramacionScreen';
 import MatematicasDiscretasScreen from './src/screens/Documentacion/MatematicasDiscretasScreen';
@@ -72,6 +72,14 @@ export default function App() {
          component={ProfesoresScreen}
          options={{title:'Profesores'}}
          />
+         {/* Materias */}
+         <Stack.Screen name="CalculoDiferencial" component={CalculoDiferencialScreen} />
+         <Stack.Screen name="FundamentosDeProgramacion" component={FundamentosDeProgramacionScreen} />
+         <Stack.Screen name="TallerDeEtica" component={TallerDeEticaScreen} />
+         <Stack.Screen name="MatesDiscretas" component={MatematicasDiscretasScreen} />
+         <Stack.Screen name="FundamentosDeInvestigacion" component={FundamentosDeInvestigacionScreen} />
+         <Stack.Screen name="TallerDeAdmin" component={TallerDeAdministracionScreen} />
+
     <Stack.Screen name="Redireccion" component={RedirectionScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
