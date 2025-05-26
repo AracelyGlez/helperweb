@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, TextInput, Pressable, Alert, ImageBackground,Image } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Image } from 'react-native';
 
 
 
