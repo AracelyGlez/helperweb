@@ -8,6 +8,9 @@ import { View, Text, StyleSheet, Button, ActivityIndicator } from 'react-native'
 // Importa tu hook de autenticación y rol.
 // ¡ASEGÚRATE DE QUE ESTA RUTA SEA CORRECTA para tu proyecto!
 import { useAuthWithRole } from '../hooks/useAuthWithRole';
+import * as React from 'react';
+
+//import React = require('react');
 
 // También necesitarás importar la función de sign out de Firebase Auth si la usas aquí
 // Por ejemplo:
@@ -85,6 +88,21 @@ export default function HomeScreen() {
         <Button
           title="Agendar Cita Psicológica"
           onPress={() => navigation.navigate('CitasPsicologicas')}
+        />
+        
+      )}
+
+      {(userRole === 'psicologa' || userRole === 'admin') && (
+        <Button
+          title="Citas"
+          onPress={() => navigation.navigate('VistaPsicologo')}
+        />
+        
+      )}
+       {(userRole === 'psicologa' || userRole === 'admin') && (
+        <Button
+          title="VistaPsicologo"
+          onPress={() => navigation.navigate('VistaPsicologo')}
         />
       )}
 
