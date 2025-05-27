@@ -37,7 +37,7 @@ export type RootStackParamList = {
     CalculoVectorial: undefined,
     EstructuraDeDatos: undefined,
     CulturaEmpresarial: undefined;
-    Algebra: undefined;
+    AlgebraLineal: undefined;
     SistemasOperativos: undefined;
     Fisica: undefined;
 

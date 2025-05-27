@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView, Linking, TouchableOpacity, StyleSheet, findNodeHandle } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-const CalculoDiferencialScreen = () => {
+const AlgebraLinealScreen = () => {
   const openVideo = (url: string) => {
     Linking.openURL(url);
   };
@@ -450,7 +450,7 @@ const CalculoDiferencialScreen = () => {
           },
         });
         
-        export default CalculoDiferencialScreen;
+        export default AlgebraLinealScreen;
 
 
 
