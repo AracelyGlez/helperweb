@@ -2,8 +2,6 @@ import { StyleSheet, Text, View, TextInput, Pressable, Alert, ImageBackground,Im
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-
-
 // Importa la función de inicio de sesión y la clase FirebaseError
 import { signInWithEmailAndPassword} from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
@@ -72,6 +70,7 @@ export default function LoginScreen() {
       >
       <View style={styles.container}>
       <View style={styles.loginBox}>
+        <Image source={require('../../assets/profile.gif')} style={styles.imagenperfil} />
         <Text style={styles.title}>Iniciar Sesión</Text>
 
         <TextInput
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
   loginBox: {
     width: '80%',
     maxWidth: 400,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(26, 43, 96, 0.14)' ,
     borderRadius: 10,
     padding: 20,
     shadowColor: '#000',
@@ -135,20 +134,21 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#fff'
   },
   input: {
     width: '100%',
     height: 45,
     borderColor: '#ccc',
-    borderWidth: 2,
-    borderRadius: 7,
+    borderWidth: 1,
+    borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 15,
     fontSize: 16,
     color:'#fff'
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: 'rgba(6, 222, 255, 0.16)',
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -161,10 +161,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   },
-  icon: {
-  width: 60,
-  height: 60,
-  marginBottom: 10,
-},
-
 });

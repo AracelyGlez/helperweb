@@ -64,7 +64,7 @@ const SistemasOperativosScreen = () => {
       >
         {/* Sección de Temario */}
         <View ref={temarioRef} style={styles.section}>
-          <Text style={styles.title}>Sistemas Operativos.</Text>
+          <Text style={styles.title}>Sistemas Operativos</Text>
           <Text style={styles.subtitle}>Temario de la Materia</Text>
           
           <View style={styles.pdfButtonContainer}>

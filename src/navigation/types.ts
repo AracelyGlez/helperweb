@@ -20,6 +20,7 @@ export type RootStackParamList = {
     Redireccion:undefined;
     VistaPsicologo:undefined;
     Profesores: { materia: Materia };
+    VistaMaestro:undefined;
     //Materias
     CalculoDiferencial: undefined;
     FundamentosDeProgramacion: undefined;
@@ -27,6 +28,19 @@ export type RootStackParamList = {
     MatesDiscretas: undefined;
     FundamentosDeInvestigacion: undefined;
     TallerDeAdmin: undefined;
+    CalculoIntegral: undefined;
+    Poo: undefined;
+    ContabilidadFinanciera: undefined;
+    Quimica: undefined;
+    DesarrolloSustentable: undefined,
+    Probabilidad: undefined;
+    CalculoVectorial: undefined,
+    EstructuraDeDatos: undefined,
+    CulturaEmpresarial: undefined;
+    Algebra: undefined;
+    SistemasOperativos: undefined;
+    Fisica: undefined;
+
   };
 
   //Esto es para la vista de profesores

@@ -106,6 +106,14 @@ export default function HomeScreen() {
         />
       )}
 
+      {(userRole === 'maestro' || userRole === 'admin') && (
+        <Button
+          title="VistaMaestro"
+          onPress={() => navigation.navigate('VistaMaestro')}
+        />
+      )}
+
+
       {/* 3. Botón Buscar asesorías: Visible solo para ALUMNOS */}
       {/* Usamos el operador && para mostrar el botón solo si el rol es 'alumno' */}
       {(userRole === 'alumno' || userRole === 'admin') && (

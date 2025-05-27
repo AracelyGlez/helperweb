@@ -97,7 +97,7 @@ type Materia = {
       },
       {
         id: '11',
-        name: 'Desarrollo sustentable',
+        name: 'Desarrollo Sustentable',
         image: assets.desarrollo,
         semestre: '2° semestre',
         profesores: ['Alicia Robles', '\nJosé Hernández'],
@@ -216,7 +216,43 @@ type Materia = {
         break;    
       case 'Taller de administración':
         navigation.navigate('TallerDeAdmin');
-        break;    
+        break;  
+      case 'Cálculo Integral':
+        navigation.navigate('CalculoIntegral');
+        break;
+      case 'POO':
+        navigation.navigate('Poo');
+        break;
+      case 'Contabilidad Financiera':
+        navigation.navigate('ContabilidadFinanciera');
+        break;
+      case 'Química':
+        navigation.navigate('Quimica');
+        break;
+      case 'Desarrollo Sustentable':
+        navigation.navigate('DesarrolloSustentable');
+        break;
+      case 'Probabilidad y estadística':
+        navigation.navigate('Probabilidad');
+        break;
+      case 'Cálculo Vectorial':
+        navigation.navigate('CalculoVectorial');
+        break;
+      case 'Estructura de datos':
+        navigation.navigate('EstructuraDeDatos');
+        break;
+      case 'Cultura Empresarial':
+        navigation.navigate('CulturaEmpresarial');
+        break;
+      case 'Álgebra Lineal':
+        navigation.navigate('AlgebraLineal');
+        break;
+      case 'Sistemas Operativos':
+        navigation.navigate('SistemasOperativos');
+        break;
+      case 'Física General':
+        navigation.navigate('Fisica');
+        break;
     }
   }}>
         <Text style={styles.buttonText}>Documentación</Text>

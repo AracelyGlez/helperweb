@@ -21,16 +21,19 @@ import React from 'react';
  import MatematicasDiscretasScreen from './src/screens/Documentacion/MatematicasDiscretasScreen';
  import TallerDeAdministracionScreen from './src/screens/Documentacion/TallerDeAdministracionScreen';
  import TallerDeEticaScreen from './src/screens/Documentacion/TallerDeEticaScreen';
+ import VistaMaestroScreen from './src/screens/VistaMaestroScreen';
  import ContabilidadFinancieraScreen from './src/screens/Documentacion/ContabilidadFinancieraScreen';
  import CalculoIntegralScreen from './src/screens/Documentacion/CalculoIntegralScreen';
  import DesarrolloSustentableScreen from './src/screens/Documentacion/DesarrolloSustentableScreen';
  import PooScreen from './src/screens/Documentacion/POOScreen';
  import QuimicaScreen from './src/screens/Documentacion/QuimicaScreen';
  import ProbabilidadEstadisticaScreen from './src/screens/Documentacion/ProbabilidadEstadisticaScreen';
-
-
-
-
+ import CalculoVectorialScreen from './src/screens/Documentacion/CalculoVectorialScreen';
+ import EstructuraDatosScreen from './src/screens/Documentacion/EstructuraDatosScreen';
+ import CulturaEmpresarialScreen from './src/screens/Documentacion/CulturaEmpresarialScreen';
+ import AlgebraLinealScreen from './src/screens/Documentacion/AlgebraLinealScreen';
+ import SistemasOperativosScreen from './src/screens/Documentacion/SistemasOperativosScreen';
+ import FisicaGeneralScreen from './src/screens/Documentacion/FisicaGeneralScreen';
 
 //  // Configuración inicial
  enableScreens();
@@ -78,6 +81,11 @@ export default function App() {
           component={ProfesoresScreen}
           options={{title:'Profesores'}}
           />
+          <Stack.Screen
+          name="VistaMaestro"
+          component={VistaMaestroScreen}
+          options={{title:'VistaMaestro'}}
+          />
           {/* Materias */ } 
           <Stack.Screen name="CalculoDiferencial" component={CalculoDiferencialScreen} />
           <Stack.Screen name="FundamentosDeProgramacion" component={FundamentosDeProgramacionScreen} />
@@ -85,10 +93,18 @@ export default function App() {
           <Stack.Screen name="MatesDiscretas" component={MatematicasDiscretasScreen} />
           <Stack.Screen name="FundamentosDeInvestigacion" component={FundamentosDeInvestigacionScreen} />
           <Stack.Screen name="TallerDeAdmin" component={TallerDeAdministracionScreen} />
-          {/* <Stack.Screen name="CalculoIntegral" component={CalculoIntegralScreen} />
+          <Stack.Screen name="CalculoIntegral" component={CalculoIntegralScreen} /> 
           <Stack.Screen name="ContabilidadFinanciera" component={ContabilidadFinancieraScreen} />
-           <Stack.Screen name="DesarrolloSustentable" component={DesarrolloSustentableScreen} />
-            <Stack.Screen name="Poo" component={PooScreen} /> */ }
+          <Stack.Screen name="DesarrolloSustentable" component={DesarrolloSustentableScreen} />
+          <Stack.Screen name="Poo" component={PooScreen} /> 
+          <Stack.Screen name="Quimica" component={QuimicaScreen} />
+          <Stack.Screen name="Probabilidad" component={ProbabilidadEstadisticaScreen} />
+          <Stack.Screen name="CalculoVectorial" component={CalculoVectorialScreen} /> 
+          <Stack.Screen name="EstructuraDeDatos" component={EstructuraDatosScreen} />
+          <Stack.Screen name="CulturaEmpresarial" component={CulturaEmpresarialScreen} />
+          <Stack.Screen name="AlgebraLineal" component={AlgebraLinealScreen} /> 
+          <Stack.Screen name="SistemasOperativos" component={SistemasOperativosScreen} />
+          <Stack.Screen name="Fisica" component={FisicaGeneralScreen} />    
      <Stack.Screen name="Redireccion" component={RedirectionScreen}/>
          </Stack.Navigator>
        </NavigationContainer>
