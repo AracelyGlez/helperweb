@@ -1,4 +1,4 @@
-  import 'react-native-gesture-handler';
+import 'react-native-gesture-handler';
 import React from 'react';
  import { enableScreens } from 'react-native-screens';
  import { StatusBar, View } from 'react-native';
@@ -78,7 +78,7 @@ export default function App() {
           component={ProfesoresScreen}
           options={{title:'Profesores'}}
           />
-          {/* Materias */}
+          {/* Materias */ } 
           <Stack.Screen name="CalculoDiferencial" component={CalculoDiferencialScreen} />
           <Stack.Screen name="FundamentosDeProgramacion" component={FundamentosDeProgramacionScreen} />
           <Stack.Screen name="TallerDeEtica" component={TallerDeEticaScreen} />
@@ -88,7 +88,7 @@ export default function App() {
           {/* <Stack.Screen name="CalculoIntegral" component={CalculoIntegralScreen} />
           <Stack.Screen name="ContabilidadFinanciera" component={ContabilidadFinancieraScreen} />
            <Stack.Screen name="DesarrolloSustentable" component={DesarrolloSustentableScreen} />
-            <Stack.Screen name="Poo" component={PooScreen} /> */}
+            <Stack.Screen name="Poo" component={PooScreen} /> */ }
      <Stack.Screen name="Redireccion" component={RedirectionScreen}/>
          </Stack.Navigator>
        </NavigationContainer>
