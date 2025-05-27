@@ -14,6 +14,7 @@ import React from 'react';
  import AlumnoScreen from './src/screens/AlumnoScreen';
  import RedirectionScreen from './src/screens/RedireccionScreen';
  import VistaPsicologoScreen from './src/screens/VistaPsicologoScreen';
+ import VistaMaestroScreen from './src/screens/VistaMaestroScreen';
  import ProfesoresScreen from './src/screens/ProfesoresScreen'; 
  import CalculoDiferencialScreen from './src/screens/Documentacion/CalculoDiferencalScreen';
  import FundamentosDeInvestigacionScreen from './src/screens/Documentacion/FundamentosDeInvestigacionScreen';
@@ -77,6 +78,11 @@ export default function App() {
           name="Profesores"
           component={ProfesoresScreen}
           options={{title:'Profesores'}}
+          />
+          <Stack.Screen
+          name="VistaMaestro"
+          component={VistaMaestroScreen}
+          options={{title:'VistaMaestro'}}
           />
           {/* Materias */}
           <Stack.Screen name="CalculoDiferencial" component={CalculoDiferencialScreen} />

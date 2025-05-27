@@ -19,6 +19,7 @@ export type RootStackParamList = {
     Alumnos: undefined;
     Redireccion:undefined;
     VistaPsicologo:undefined;
+    VistaMaestro:undefined;
     Profesores: { materia: Materia };
     //Materias
     CalculoDiferencial: undefined;
