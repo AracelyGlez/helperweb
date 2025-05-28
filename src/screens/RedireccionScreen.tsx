@@ -66,7 +66,7 @@ const RoleBasedRedirectScreen: React.FC = () => {
           navigation.replace('CitasPsicologicas');
           break;
            case 'maestro':
-          navigation.replace('Home');
+          navigation.replace('VistaMaestro');
           break;
         default:
           console.error("[Redirección] Rol no reconocido:", normalizedRole);
