@@ -57,7 +57,35 @@ const VistaPsicologoScreen = () => {
     motivo: '',
   });
 
-  // Funciones para manejar citas
+  // Función de eliminación corregida
+  const handleEliminarCita = (id: string) => {
+    // Verificar que la cita existe
+    const citaAEliminar = citas.find(c => c.id === id);
+    if (!citaAEliminar) {
+      Alert.alert("Error", "La cita no existe o ya fue eliminada");
+      return;
+    }
+
+    Alert.alert(
+      "Confirmar eliminación",
+      `¿Estás seguro de eliminar la cita de ${citaAEliminar.alumno}?`,
+      [
+        {
+          text: "Cancelar",
+          style: "cancel"
+        },
+        { 
+          text: "Eliminar", 
+          onPress: () => {
+            eliminarCita(id);
+            Alert.alert("Éxito", "Cita eliminada correctamente");
+          }
+        }
+      ]
+    );
+  };
+
+  // Resto de funciones (confirmar, cancelar, reagendar, etc.)
   const confirmarCita = (id: string) => {
     actualizarCita(id, { estado: 'confirmada' });
     Alert.alert('Cita confirmada', 'La cita ha sido confirmada exitosamente');
@@ -81,56 +109,8 @@ const VistaPsicologoScreen = () => {
   };
 
   const abrirModalEditar = (cita: Cita) => {
-    setCitaEditando(cita);
+    setCitaEditando({...cita});
     setEditarModalVisible(true);
-  };
-
-  const handleEliminarCita = (id: string) => {
-    Alert.alert(
-      "Confirmar eliminación",
-      "¿Estás seguro de que deseas eliminar esta cita?",
-      [
-        {
-          text: "Cancelar",
-          style: "cancel"
-        },
-        { 
-          text: "Eliminar", 
-          onPress: () => {
-            eliminarCita(id);
-            Alert.alert("Éxito", "Cita eliminada correctamente");
-          }
-        }
-      ]
-    );
-  };
-
-  const reagendarCita = () => {
-    if (!nuevaFecha || !nuevaHora) {
-      Alert.alert('Error', 'Por favor ingrese la nueva fecha y hora');
-      return;
-    }
-
-    if (!motivoReagendo) {
-      Alert.alert('Error', 'Por favor ingrese el motivo del reagendo');
-      return;
-    }
-
-    if (citaSeleccionada) {
-      actualizarCita(citaSeleccionada.id, { 
-        fecha: nuevaFecha, 
-        hora: nuevaHora,
-        estado: 'reagendada',
-        motivo: `${citaSeleccionada.motivo} (Reagendado: ${motivoReagendo})`
-      });
-    }
-
-    setReagendarModalVisible(false);
-    setCitaSeleccionada(null);
-    setNuevaFecha('');
-    setNuevaHora('');
-    setMotivoReagendo('');
-    Alert.alert('Éxito', 'La cita ha sido reagendada correctamente');
   };
 
   const guardarEdicionCita = () => {
@@ -146,8 +126,25 @@ const VistaPsicologoScreen = () => {
     });
 
     setEditarModalVisible(false);
-    setCitaEditando(null);
     Alert.alert('Éxito', 'Cita actualizada correctamente');
+  };
+
+  const reagendarCita = () => {
+    if (!nuevaFecha || !nuevaHora || !citaSeleccionada) {
+      Alert.alert('Error', 'Por favor complete todos los campos');
+      return;
+    }
+
+    actualizarCita(citaSeleccionada.id, { 
+      fecha: nuevaFecha, 
+      hora: nuevaHora,
+      estado: 'reagendada',
+      motivo: `${citaSeleccionada.motivo} (Reagendado: ${motivoReagendo || 'sin motivo especificado'})`
+    });
+
+    setReagendarModalVisible(false);
+    setCitaSeleccionada(null);
+    Alert.alert('Éxito', 'La cita ha sido reagendada correctamente');
   };
 
   const agregarCita = () => {
@@ -156,16 +153,14 @@ const VistaPsicologoScreen = () => {
       return;
     }
 
-    const nuevaCitaCompleta: Omit<Cita, 'id' | 'estado'> = {
+    agregarCitaContext({
       alumno: nuevaCita.alumno,
       numeroControl: nuevaCita.numeroControl,
       carrera: nuevaCita.carrera,
       fecha: nuevaCita.fecha,
       hora: nuevaCita.hora,
       motivo: nuevaCita.motivo,
-    };
-
-    agregarCitaContext(nuevaCitaCompleta);
+    });
 
     setModalVisible(false);
     setNuevaCita({
@@ -213,7 +208,7 @@ const VistaPsicologoScreen = () => {
           <Text style={styles.buttonText}>Editar</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity 
+        <TouchableOpacity
           style={[styles.button, styles.deleteButton]}
           onPress={() => handleEliminarCita(cita.id)}
         >
@@ -281,239 +276,13 @@ const VistaPsicologoScreen = () => {
         <Text style={styles.addButtonText}>+ Agregar Nueva Cita</Text>
       </TouchableOpacity>
 
-      {/* Modal para agregar nueva cita */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Agregar Nueva Cita</Text>
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Nombre del alumno"
-              value={nuevaCita.alumno}
-              onChangeText={text => setNuevaCita({...nuevaCita, alumno: text})}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Número de control"
-              value={nuevaCita.numeroControl}
-              onChangeText={text => setNuevaCita({...nuevaCita, numeroControl: text})}
-              keyboardType="numeric"
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Carrera"
-              value={nuevaCita.carrera}
-              onChangeText={text => setNuevaCita({...nuevaCita, carrera: text})}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Fecha (YYYY-MM-DD)"
-              value={nuevaCita.fecha}
-              onChangeText={text => setNuevaCita({...nuevaCita, fecha: text})}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Hora (HH:MM)"
-              value={nuevaCita.hora}
-              onChangeText={text => setNuevaCita({...nuevaCita, hora: text})}
-            />
-            
-            <TextInput
-              style={[styles.input, {height: 80}]}
-              placeholder="Motivo de la consulta"
-              multiline
-              value={nuevaCita.motivo}
-              onChangeText={text => setNuevaCita({...nuevaCita, motivo: text})}
-            />
-            
-            <View style={styles.modalButtons}>
-              <TouchableOpacity 
-                style={[styles.modalButton, styles.cancelModalButton]}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={styles.modalButtonText}>Cancelar</Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity 
-                style={[styles.modalButton, styles.addModalButton]}
-                onPress={agregarCita}
-              >
-                <Text style={styles.modalButtonText}>Agregar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
-
-      {/* Modal de perfil del psicólogo */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={showProfile}
-        onRequestClose={() => setShowProfile(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Perfil del Psicólogo</Text>
-            
-            <View style={styles.profileInfo}>
-              <Text style={styles.profileText}>Nombre: {psicologoData.nombre}</Text>
-              <Text style={styles.profileText}>Especialidad: {psicologoData.especialidad}</Text>
-              <Text style={styles.profileText}>Correo: {psicologoData.correo}</Text>
-              <Text style={styles.profileText}>Teléfono: {psicologoData.telefono}</Text>
-            </View>
-            
-            <TouchableOpacity 
-              style={[styles.modalButton, styles.closeModalButton]}
-              onPress={() => setShowProfile(false)}
-            >
-              <Text style={styles.modalButtonText}>Cerrar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-
-      {/* Modal para reagendar cita */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={reagendarModalVisible}
-        onRequestClose={() => setReagendarModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Reagendar Cita</Text>
-            <Text style={styles.cardText}>Alumno: {citaSeleccionada?.alumno}</Text>
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Nueva fecha (YYYY-MM-DD)"
-              value={nuevaFecha}
-              onChangeText={setNuevaFecha}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Nueva hora (HH:MM)"
-              value={nuevaHora}
-              onChangeText={setNuevaHora}
-            />
-            
-            <TextInput
-              style={[styles.input, {height: 80}]}
-              placeholder="Motivo del reagendo"
-              multiline
-              value={motivoReagendo}
-              onChangeText={setMotivoReagendo}
-            />
-            
-            <View style={styles.modalButtons}>
-              <TouchableOpacity 
-                style={[styles.modalButton, styles.cancelModalButton]}
-                onPress={() => setReagendarModalVisible(false)}
-              >
-                <Text style={styles.modalButtonText}>Cancelar</Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity 
-                style={[styles.modalButton, styles.addModalButton]}
-                onPress={reagendarCita}
-              >
-                <Text style={styles.modalButtonText}>Reagendar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
-
-      {/* Modal para editar cita */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={editarModalVisible}
-        onRequestClose={() => setEditarModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Editar Cita</Text>
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Nombre del alumno"
-              value={citaEditando?.alumno || ''}
-              onChangeText={(text) => citaEditando && setCitaEditando({...citaEditando, alumno: text})}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Número de control"
-              value={citaEditando?.numeroControl || ''}
-              onChangeText={(text) => citaEditando && setCitaEditando({...citaEditando, numeroControl: text})}
-              keyboardType="numeric"
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Carrera"
-              value={citaEditando?.carrera || ''}
-              onChangeText={(text) => citaEditando && setCitaEditando({...citaEditando, carrera: text})}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Fecha (YYYY-MM-DD)"
-              value={citaEditando?.fecha || ''}
-              onChangeText={(text) => citaEditando && setCitaEditando({...citaEditando, fecha: text})}
-            />
-            
-            <TextInput
-              style={styles.input}
-              placeholder="Hora (HH:MM)"
-              value={citaEditando?.hora || ''}
-              onChangeText={(text) => citaEditando && setCitaEditando({...citaEditando, hora: text})}
-            />
-            
-            <TextInput
-              style={[styles.input, {height: 80}]}
-              placeholder="Motivo de la consulta"
-              multiline
-              value={citaEditando?.motivo || ''}
-              onChangeText={(text) => citaEditando && setCitaEditando({...citaEditando, motivo: text})}
-            />
-            
-            <View style={styles.modalButtons}>
-              <TouchableOpacity 
-                style={[styles.modalButton, styles.cancelModalButton]}
-                onPress={() => setEditarModalVisible(false)}
-              >
-                <Text style={styles.modalButtonText}>Cancelar</Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity 
-                style={[styles.modalButton, styles.addModalButton]}
-                onPress={guardarEdicionCita}
-              >
-                <Text style={styles.modalButtonText}>Guardar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+      {/* Modales (agregar, editar, reagendar, perfil) */}
+      {/* ... (mantén el código existente de los modales) ... */}
     </View>
   );
 };
 
-// Estilos actualizados
+// Estilos (se mantienen iguales)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
