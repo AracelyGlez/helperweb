@@ -2,24 +2,48 @@ import { StyleSheet, Text, View, TextInput, Pressable, Image, ScrollView, Platfo
 import { Calendar } from 'react-native-calendars';
 import { SetStateAction, useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
+import { useCitas } from '../components/CitasContext'; // Asegúrate de que la ruta sea correcta
 
 export default function CitasPsicologicasScreen() {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [motivo, setMotivo] = useState('');
+  const [alumno, setAlumno] = useState('');
+  const [numeroControl, setNumeroControl] = useState('');
+  const [carrera, setCarrera] = useState('');
+  
+  const { agregarCita } = useCitas();
 
   const handleAgendar = () => {
-    if (!selectedDate || !selectedTime || !motivo) {
-      alert('Por favor selecciona una fecha, hora y escribe el motivo.');
+    if (!selectedDate || !selectedTime || !motivo || !alumno || !numeroControl || !carrera) {
+      alert('Por favor completa todos los campos.');
       return;
     }
-    alert(`Cita agendada para el ${selectedDate} a las ${selectedTime} con motivo: ${motivo}`);
+    
+    agregarCita({
+      alumno,
+      numeroControl,
+      carrera,
+      fecha: selectedDate,
+      hora: selectedTime,
+      motivo,
+    });
+    
+    alert(`Cita agendada para el ${selectedDate} a las ${selectedTime}\nAlumno: ${alumno}\nNo. Control: ${numeroControl}\nCarrera: ${carrera}`);
+    
+    // Limpiar campos después de agendar
+    setSelectedDate('');
+    setSelectedTime('');
+    setMotivo('');
+    setAlumno('');
+    setNumeroControl('');
+    setCarrera('');
   };
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Agenda tu cita psicológica</Text>
-      <Text style={styles.subText}>“Tu salud mental importa. ¡Estamos para escucharte!”</Text>
+      <Text style={styles.subText}>"Tu salud mental importa. ¡Estamos para escucharte!"</Text>
 
       <Image 
         source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3048/3048398.png' }}
@@ -27,6 +51,32 @@ export default function CitasPsicologicasScreen() {
       />
 
       <View style={styles.dateAndMotivoBox}>
+        {/* Campos nuevos para información del alumno */}
+        <Text style={styles.label}>Nombre del alumno:</Text>
+        <TextInput
+          placeholder="Nombre completo"
+          value={alumno}
+          onChangeText={setAlumno}
+          style={styles.input}
+        />
+
+        <Text style={styles.label}>Número de control:</Text>
+        <TextInput
+          placeholder="Número de control"
+          value={numeroControl}
+          onChangeText={setNumeroControl}
+          style={styles.input}
+          keyboardType="numeric"
+        />
+
+        <Text style={styles.label}>Carrera:</Text>
+        <TextInput
+          placeholder="Carrera"
+          value={carrera}
+          onChangeText={setCarrera}
+          style={styles.input}
+        />
+
         <Text style={styles.label}>Fecha de la cita:</Text>
         <Calendar
           onDayPress={(day: { dateString: SetStateAction<string>; }) => setSelectedDate(day.dateString)}
@@ -42,7 +92,6 @@ export default function CitasPsicologicasScreen() {
         />
 
         <View style={{ marginTop: 20, marginBottom: 15 }}>
-          
           <Text style={styles.selectedDateText}>
             {selectedDate ? `Fecha seleccionada: ${selectedDate}` : 'Selecciona una fecha'}
           </Text>
@@ -73,8 +122,9 @@ export default function CitasPsicologicasScreen() {
           placeholder="Escribe el motivo de la cita"
           value={motivo}
           onChangeText={setMotivo}
-          style={styles.input}
+          style={[styles.input, styles.multilineInput]}
           multiline
+          numberOfLines={4}
         />
       </View>
 
@@ -137,9 +187,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding: 8,
-    minHeight: 50,
+    minHeight: 40,
     backgroundColor: 'white',
     marginBottom: 15,
+  },
+  multilineInput: {
+    minHeight: 80,
+    textAlignVertical: 'top',
   },
   button: {
     backgroundColor: '#f06292',
@@ -152,7 +206,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontWeight: 'bold',
+    fontWeight: 'bold', 
   },
   dateAndMotivoBox: {
     backgroundColor: 'white',

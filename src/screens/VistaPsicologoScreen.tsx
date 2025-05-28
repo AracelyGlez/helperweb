@@ -9,8 +9,8 @@ import {
   Modal,
   TextInput,
 } from 'react-native';
+import { useCitas } from '../components/CitasContext';
 
-// Definición de tipos
 type Cita = {
   id: string;
   alumno: string;
@@ -29,7 +29,6 @@ type Psicologo = {
   telefono: string;
 };
 
-// Datos iniciales
 const psicologoData: Psicologo = {
   nombre: 'Dra. Ana Martínez',
   especialidad: 'Psicología Clínica',
@@ -37,46 +36,14 @@ const psicologoData: Psicologo = {
   telefono: '55 1234 5678',
 };
 
-const citasIniciales: Cita[] = [
-  {
-    id: '1',
-    alumno: 'Juan Pérez',
-    numeroControl: '20210001',
-    carrera: 'Ingeniería',
-    fecha: '2023-11-15',
-    hora: '10:00',
-    motivo: 'Ansiedad académica',
-    estado: 'pendiente',
-  },
-  {
-    id: '2',
-    alumno: 'María López',
-    numeroControl: '20210002',
-    carrera: 'Medicina',
-    fecha: '2023-11-16',
-    hora: '11:30',
-    motivo: 'Orientación vocacional',
-    estado: 'confirmada',
-  },
-  {
-    id: '3',
-    alumno: 'Carlos Sánchez',
-    numeroControl: '20210003',
-    carrera: 'Derecho',
-    fecha: '2023-11-17',
-    hora: '09:00',
-    motivo: 'Problemas de adaptación',
-    estado: 'realizada',
-  },
-];
-
 const VistaPsicologoScreen = () => {
-  // Estados
-  const [citas, setCitas] = useState<Cita[]>(citasIniciales);
+  const { citas, actualizarCita, agregarCita: agregarCitaContext, eliminarCita } = useCitas();
   const [modalVisible, setModalVisible] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [reagendarModalVisible, setReagendarModalVisible] = useState(false);
+  const [editarModalVisible, setEditarModalVisible] = useState(false);
   const [citaSeleccionada, setCitaSeleccionada] = useState<Cita | null>(null);
+  const [citaEditando, setCitaEditando] = useState<Cita | null>(null);
   const [nuevaFecha, setNuevaFecha] = useState('');
   const [nuevaHora, setNuevaHora] = useState('');
   const [motivoReagendo, setMotivoReagendo] = useState('');
@@ -92,17 +59,17 @@ const VistaPsicologoScreen = () => {
 
   // Funciones para manejar citas
   const confirmarCita = (id: string) => {
-    setCitas(citas.map(c => c.id === id ? {...c, estado: 'confirmada'} : c));
+    actualizarCita(id, { estado: 'confirmada' });
     Alert.alert('Cita confirmada', 'La cita ha sido confirmada exitosamente');
   };
 
   const cancelarCita = (id: string) => {
-    setCitas(citas.map(c => c.id === id ? {...c, estado: 'cancelada'} : c));
+    actualizarCita(id, { estado: 'cancelada' });
     Alert.alert('Cita cancelada', 'La cita ha sido cancelada');
   };
 
   const marcarRealizada = (id: string) => {
-    setCitas(citas.map(c => c.id === id ? {...c, estado: 'realizada'} : c));
+    actualizarCita(id, { estado: 'realizada' });
     Alert.alert('Cita completada', 'La cita ha sido marcada como realizada');
   };
 
@@ -111,6 +78,31 @@ const VistaPsicologoScreen = () => {
     setNuevaFecha(cita.fecha);
     setNuevaHora(cita.hora);
     setReagendarModalVisible(true);
+  };
+
+  const abrirModalEditar = (cita: Cita) => {
+    setCitaEditando(cita);
+    setEditarModalVisible(true);
+  };
+
+  const handleEliminarCita = (id: string) => {
+    Alert.alert(
+      "Confirmar eliminación",
+      "¿Estás seguro de que deseas eliminar esta cita?",
+      [
+        {
+          text: "Cancelar",
+          style: "cancel"
+        },
+        { 
+          text: "Eliminar", 
+          onPress: () => {
+            eliminarCita(id);
+            Alert.alert("Éxito", "Cita eliminada correctamente");
+          }
+        }
+      ]
+    );
   };
 
   const reagendarCita = () => {
@@ -124,17 +116,14 @@ const VistaPsicologoScreen = () => {
       return;
     }
 
-    setCitas(citas.map(c => 
-      c.id === citaSeleccionada?.id 
-        ? {
-            ...c, 
-            fecha: nuevaFecha, 
-            hora: nuevaHora,
-            estado: 'reagendada',
-            motivo: `${c.motivo} (Reagendado: ${motivoReagendo})`
-          } 
-        : c
-    ));
+    if (citaSeleccionada) {
+      actualizarCita(citaSeleccionada.id, { 
+        fecha: nuevaFecha, 
+        hora: nuevaHora,
+        estado: 'reagendada',
+        motivo: `${citaSeleccionada.motivo} (Reagendado: ${motivoReagendo})`
+      });
+    }
 
     setReagendarModalVisible(false);
     setCitaSeleccionada(null);
@@ -144,19 +133,40 @@ const VistaPsicologoScreen = () => {
     Alert.alert('Éxito', 'La cita ha sido reagendada correctamente');
   };
 
+  const guardarEdicionCita = () => {
+    if (!citaEditando) return;
+
+    actualizarCita(citaEditando.id, {
+      alumno: citaEditando.alumno,
+      numeroControl: citaEditando.numeroControl,
+      carrera: citaEditando.carrera,
+      fecha: citaEditando.fecha,
+      hora: citaEditando.hora,
+      motivo: citaEditando.motivo
+    });
+
+    setEditarModalVisible(false);
+    setCitaEditando(null);
+    Alert.alert('Éxito', 'Cita actualizada correctamente');
+  };
+
   const agregarCita = () => {
     if (!nuevaCita.alumno || !nuevaCita.fecha || !nuevaCita.hora) {
       Alert.alert('Error', 'Por favor complete todos los campos requeridos');
       return;
     }
 
-    const nuevaCitaCompleta: Cita = {
-      ...nuevaCita,
-      id: Math.random().toString(36).substring(7),
-      estado: 'pendiente',
+    const nuevaCitaCompleta: Omit<Cita, 'id' | 'estado'> = {
+      alumno: nuevaCita.alumno,
+      numeroControl: nuevaCita.numeroControl,
+      carrera: nuevaCita.carrera,
+      fecha: nuevaCita.fecha,
+      hora: nuevaCita.hora,
+      motivo: nuevaCita.motivo,
     };
 
-    setCitas([...citas, nuevaCitaCompleta]);
+    agregarCitaContext(nuevaCitaCompleta);
+
     setModalVisible(false);
     setNuevaCita({
       alumno: '',
@@ -169,7 +179,7 @@ const VistaPsicologoScreen = () => {
     Alert.alert('Éxito', 'Nueva cita agregada correctamente');
   };
 
-  // Componente de tarjeta de cita normall
+  // Componente de tarjeta de cita
   const CitaCard = ({ cita }: { cita: Cita }) => (
     <View style={[
       styles.card,
@@ -196,6 +206,20 @@ const VistaPsicologoScreen = () => {
       </Text>
 
       <View style={styles.buttonsContainer}>
+        <TouchableOpacity 
+          style={[styles.button, styles.editButton]}
+          onPress={() => abrirModalEditar(cita)}
+        >
+          <Text style={styles.buttonText}>Editar</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={[styles.button, styles.deleteButton]}
+          onPress={() => handleEliminarCita(cita.id)}
+        >
+          <Text style={styles.buttonText}>Eliminar</Text>
+        </TouchableOpacity>
+
         {cita.estado === 'pendiente' && (
           <>
             <TouchableOpacity 
@@ -210,30 +234,16 @@ const VistaPsicologoScreen = () => {
             >
               <Text style={styles.buttonText}>Reagendar</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
-              style={[styles.button, styles.cancelButton]}
-              onPress={() => cancelarCita(cita.id)}
-            >
-              <Text style={styles.buttonText}>Cancelar</Text>
-            </TouchableOpacity>
           </>
         )}
         
         {cita.estado === 'confirmada' && (
-          <>
-            <TouchableOpacity 
-              style={[styles.button, styles.completeButton]}
-              onPress={() => marcarRealizada(cita.id)}
-            >
-              <Text style={styles.buttonText}>Realizada</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={[styles.button, styles.reagendarButton]}
-              onPress={() => abrirModalReagendar(cita)}
-            >
-              <Text style={styles.buttonText}>Reagendar</Text>
-            </TouchableOpacity>
-          </>
+          <TouchableOpacity 
+            style={[styles.button, styles.completeButton]}
+            onPress={() => marcarRealizada(cita.id)}
+          >
+            <Text style={styles.buttonText}>Realizada</Text>
+          </TouchableOpacity>
         )}
       </View>
     </View>
@@ -294,6 +304,7 @@ const VistaPsicologoScreen = () => {
               placeholder="Número de control"
               value={nuevaCita.numeroControl}
               onChangeText={text => setNuevaCita({...nuevaCita, numeroControl: text})}
+              keyboardType="numeric"
             />
             
             <TextInput
@@ -372,7 +383,7 @@ const VistaPsicologoScreen = () => {
         </View>
       </Modal>
 
-      {/* Modal para reagendaaaar cita */}
+      {/* Modal para reagendar cita */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -424,29 +435,103 @@ const VistaPsicologoScreen = () => {
           </View>
         </View>
       </Modal>
+
+      {/* Modal para editar cita */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={editarModalVisible}
+        onRequestClose={() => setEditarModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Editar Cita</Text>
+            
+            <TextInput
+              style={styles.input}
+              placeholder="Nombre del alumno"
+              value={citaEditando?.alumno || ''}
+              onChangeText={(text) => citaEditando && setCitaEditando({...citaEditando, alumno: text})}
+            />
+            
+            <TextInput
+              style={styles.input}
+              placeholder="Número de control"
+              value={citaEditando?.numeroControl || ''}
+              onChangeText={(text) => citaEditando && setCitaEditando({...citaEditando, numeroControl: text})}
+              keyboardType="numeric"
+            />
+            
+            <TextInput
+              style={styles.input}
+              placeholder="Carrera"
+              value={citaEditando?.carrera || ''}
+              onChangeText={(text) => citaEditando && setCitaEditando({...citaEditando, carrera: text})}
+            />
+            
+            <TextInput
+              style={styles.input}
+              placeholder="Fecha (YYYY-MM-DD)"
+              value={citaEditando?.fecha || ''}
+              onChangeText={(text) => citaEditando && setCitaEditando({...citaEditando, fecha: text})}
+            />
+            
+            <TextInput
+              style={styles.input}
+              placeholder="Hora (HH:MM)"
+              value={citaEditando?.hora || ''}
+              onChangeText={(text) => citaEditando && setCitaEditando({...citaEditando, hora: text})}
+            />
+            
+            <TextInput
+              style={[styles.input, {height: 80}]}
+              placeholder="Motivo de la consulta"
+              multiline
+              value={citaEditando?.motivo || ''}
+              onChangeText={(text) => citaEditando && setCitaEditando({...citaEditando, motivo: text})}
+            />
+            
+            <View style={styles.modalButtons}>
+              <TouchableOpacity 
+                style={[styles.modalButton, styles.cancelModalButton]}
+                onPress={() => setEditarModalVisible(false)}
+              >
+                <Text style={styles.modalButtonText}>Cancelar</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity 
+                style={[styles.modalButton, styles.addModalButton]}
+                onPress={guardarEdicionCita}
+              >
+                <Text style={styles.modalButtonText}>Guardar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
 
-// Estilos con colores por si quiern cambiarlos
+// Estilos actualizados
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9F7F0', // Beige muy claro
+    backgroundColor: '#F9F7F0',
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 15,
-    backgroundColor: '#B8DFD8', // Verde pastel
+    backgroundColor: '#B8DFD8',
     borderBottomWidth: 1,
     borderBottomColor: '#7CBCB5',
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#3A6351', // Verde oscuro suave
+    color: '#3A6351',
   },
   profileButton: {
     backgroundColor: '#3A6351',
@@ -474,23 +559,23 @@ const styles = StyleSheet.create({
   },
   cardPendiente: {
     borderLeftWidth: 5,
-    borderLeftColor: '#FFD3B6', // Naranja pastel
+    borderLeftColor: '#FFD3B6',
   },
   cardConfirmada: {
     borderLeftWidth: 5,
-    borderLeftColor: '#A2D2FF', // Azul pastel
+    borderLeftColor: '#A2D2FF',
   },
   cardRealizada: {
     borderLeftWidth: 5,
-    borderLeftColor: '#CAFFBF', // Verde pastel
+    borderLeftColor: '#CAFFBF',
   },
   cardCancelada: {
     borderLeftWidth: 5,
-    borderLeftColor: '#FFADAD', // Rojo pastel
+    borderLeftColor: '#FFADAD',
   },
   cardReagendada: {
     borderLeftWidth: 5,
-    borderLeftColor: '#D8B5FF', // Lila pastel
+    borderLeftColor: '#D8B5FF',
   },
   cardTitle: {
     fontSize: 18,
@@ -510,19 +595,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   statusPendiente: {
-    color: '#FF9A76', // Naranja pastel
+    color: '#FF9A76',
   },
   statusConfirmada: {
-    color: '#7FB3D5', // Azul pastel
+    color: '#7FB3D5',
   },
   statusRealizada: {
-    color: '#88C9A1', // Verde pastel
+    color: '#88C9A1',
   },
   statusCancelada: {
-    color: '#FF6B6B', // Rojo pastel
+    color: '#FF6B6B',
   },
   statusReagendada: {
-    color: '#B693F8', // Lila pastel
+    color: '#B693F8',
   },
   buttonsContainer: {
     flexDirection: 'row',
@@ -544,16 +629,22 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   confirmButton: {
-    backgroundColor: '#7FB3D5', // Azul pastel
+    backgroundColor: '#7FB3D5',
   },
   cancelButton: {
-    backgroundColor: '#FF6B6B', // Rojo pastel
+    backgroundColor: '#FF6B6B',
   },
   completeButton: {
-    backgroundColor: '#88C9A1', // Verde pastel
+    backgroundColor: '#88C9A1',
   },
   reagendarButton: {
-    backgroundColor: '#B693F8', // Lila pastel
+    backgroundColor: '#B693F8',
+  },
+  editButton: {
+    backgroundColor: '#FFC107',
+  },
+  deleteButton: {
+    backgroundColor: '#F44336',
   },
   addButton: {
     backgroundColor: '#B8DFD8',
@@ -620,10 +711,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   addModalButton: {
-    backgroundColor: '#88C9A1', // Verde pastel
+    backgroundColor: '#88C9A1',
   },
   cancelModalButton: {
-    backgroundColor: '#FF6B6B', // Rojo pastel
+    backgroundColor: '#FF6B6B',
   },
   closeModalButton: {
     backgroundColor: '#3A6351',
