@@ -17,7 +17,7 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     if (!controlNumber || !password) {
-      Alert.alert('Error', 'Por favor ingresa número de control y contraseña');
+      alert(`no a ingresado valores`);
       return;
     }
 
@@ -26,7 +26,7 @@ export default function LoginScreen() {
 
       const user = userCredential.user;
       console.log('Usuario inició sesión exitosamente:', user.email);
-      Alert.alert('Éxito', '¡Inicio de sesión exitoso!');
+      alert('Éxito ¡Inicio de sesión exitoso!');
       navigation.navigate('Redireccion')
       
     } catch (error) {
